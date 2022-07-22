@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  
+    <style>
+     .loading {
+        background-color: black;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top:0;
+        left:0;
+        z-index: 10000;
+      }
+
+      .pt-40{
+        padding-top: 20rem;
+      }
+
+      #limitation-of-liability{
+            font-size:x-small;
+      }
+    
+    </style>
+  </head>
+  
+  <body>
+
+    <div class="container" id="user-form">
+
+      <div class="row p-2 justify-content-center">
+        <div class="col-1">  </div>
+
+        <div class="col-10"> 
+          <h1>Calc fellow's FX Hedging Policy Widget</h1>
+        </div> 
+
+        <div class="col-1">  </div> 
+      </div>
+
+       <!----------------------------------------- row 1: Major -->
+      <div class="row p-2">
+        <div class="col-1">  </div> 
+
+        <div class="col-auto">
+          <label for="major-currency-select-id" class="form-label">Select Major Currency</label>
+
+          <select class="form-select" aria-label="Default select example" id="major-currency-select-id">
+            <option selected disabled>Select an option</option>
+            <!-- <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option> 
+            <option selected>EURUSD</option> -->
+          </select>
+        </div>
+        
+        <div class="col-1">  </div>  
+      </div> 
+      <!-----------------------------------------END: row 1 -->
+
+      <!----------------------------------------- row 2: Minor -->
+      <div class="row p-2">
+         <div class="col-1">  </div> 
+
+        <div class="col-auto">
+          <label>Select Minor Currency</label>
+
+          <select class="form-select" aria-label="Default select example" id="minor-currency-select-id">
+            <option selected disabled>Select an option</option>
+            <!-- <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option> 
+            <option selected>EURUSD</option> -->
+          </select>
+        </div>
+        
+        <div class="col-1">  </div>  
+        
+      </div> 
+      <!-----------------------------------------END: row 2 -->
+
+      <!----------------------------------------- row 3: Exposure direction radio -->
+      <div class="row p-2">
+        <div class="col-1">  </div> 
+
+        <div class="col-auto"> 
+
+          <label>Exposure direction</label>
+
+          <div class="form-check ps-5">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="direction-up-id" required>
+            <label class="form-check-label" for="direction-up-id">
+              Up
+            </label>
+          </div>
+
+          <div class="form-check ps-5">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="direction-down-id" required>
+            <label class="form-check-label" for="direction-down-id">
+              Down
+            </label>
+          </div>     
+
+          <span class="ps-5 d-none" id="span-apreciation">
+              Appreciation of the <span id="span-major-apreciation"></span> against the <span id="span-minor-apreciation"></span>
+          </span>
+
+          <span class="ps-5 d-none" id="span-depreciation">
+              Depreciation of the <span id="span-major-depreciation"></span> against the <span id="span-minor-depreciation"></span>
+          </span>
+
+        </div>
+
+        <div class="col-1">  </div>  
+
+      </div>
+      <!-------------------------------------------END: row 3 -->
+
+
+      <!----------------------------------------- row 4: Budget Rate -->
+      <div class="row p-2">
+        <div class="col-1"> </div>  
+
+        <div class="col-auto">
+          <label for="budget-rate-id" class="form-label">Budget Rate: </label>
+          <input type="number" step="0.0001" min="0" class="form-control" placeholder="Budget Rate" id="budget-rate-id" required>   
+          <hr>      
+        </div>
+         
+        
+        <div class="col-1"> </div>           
+      </div> 
+      <!-------------------------------------------END: row 4 -->
+      
+      <!--- ======================== Question Section: Choose the answers =============== -->
+            
+        <div class="row p-2">
+          <div class="col-1">  </div> 
+
+          <div class="col-auto">
+            <h5>Choose the answers that best suit your company</h5>
+          </div>
+          
+          <div class="col-1">  </div> 
+        </div>
+      
+      <!-------------------------------------------END: Choose the answers -->
+
+
+      <!-- ----------------------------------------------Question 1:  company's benchmark Question -->
+      <div class="row p-2">
+        <div class="col-1">  </div> 
+
+        <div class="col-auto">
+          <label>The annual budget rate is the company's benchmark rate</label>
+          <select class="form-select" aria-label="Default select example" id="is-benchmark-id">
+            <option selected disabled>Select an option</option>
+            <option value=1>Yes it does</option>
+            <option value=2>The company's reference rate changes every three months</option>
+            <option value=3>The company's reference rate changes every six months</option>
+       
+          </select>
+        </div>
+          
+          <div class="col-1">  </div> 
+      </div>
+      <!-------------------------------------------Question 2 : level of certainty -->
+      <div class="row p-2">
+        <div class="col-1">  </div> 
+
+        <div class="col-auto">
+          <label>The level of certainty that the projected exposed cash flow will indeed materialize</label>
+          <select class="form-select" aria-label="Default select example" id="level-of-certainty-id" required>
+            <option selected disabled>Select an option</option>
+            <option value=1>Low certainty for all time frames</option>
+            <option value=2>There is high certainty for a period of about three months and then the level of certainty drops moderately</option>
+            <option value=3>There is high certainty for a period of about three months and then the level of certainty drops sharply</option>
+            <option value=4>High certainty</option>
+      
+          </select>
+        </div>
+          
+        <div class="col-1">   </div> 
+      </div>
+
+      <!-------------------------------------------Question 3 : roll currency exposures -->
+      <div class="row p-2">
+        <div class="col-1">  </div> 
+
+        <div class="col-auto">
+          <label>The extent to which the company is able to roll currency exposures on its customers</label>
+          <select class="form-select" aria-label="Default select example" id="roll-currency-exposures-id" required>
+            <option selected disabled>Select an option</option>
+            <option value=1>There is no such capability</option>
+            <option value=2>To a small extent and after several months</option>
+            <option value=3>Such a capability exists however it takes at least three months and it is never fully offset</option>
+                   
+          </select>
+        </div>
+          
+        <div class="col-1">  </div> 
+      </div>
+
+      <!-------------------------------------------Question 4 : financial damage -->
+      <div class="row p-2">
+        <div class="col-1">  </div> 
+
+        <div class="col-auto">
+          <label>In a scenario where the exchange rate will trade sharply and steadily in the exposure direction, then the damage will be...</label>
+
+          <select class="form-select" aria-label="Default select example" id="financial-damage-id" required>
+            <option selected disabled>Select an option</option>
+            <option value=1>The financial damage to the company will be severe and will jeopardize the continuation of its activities</option>
+            <option value=2>The financial results will be significantly impaired but this will not pose a risk to the continuation of operations</option>
+            <option value=3>The financial damage will not be significant to the company.</option>
+                     
+          </select>
+
+          <hr>
+        </div>
+          
+          <div class="col-1">  </div> 
+      </div>
+
+      <!---====================================Contact info======================== -->
+                  
+      <div class="row p-2">
+          <div class="col-1">   </div> 
+
+          <div class="col-auto">
+            <h5>To whom to send the FX hedging policy?</h5>
+          </div>
+          
+          <div class="col-1">   </div> 
+      </div>
+
+      <!------------------------------------------- -->
+
+      <div class="row p-2 input-group">
+        <div class="col-1">   </div>    
+
+        <div class="col-auto">
+          <!-- <label>Budget Rate: </label> -->
+         <!-- <input type="email" pattern="[^ @]*@[^ @]*" placeholder="Enter your email">   -->
+         <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" placeholder="Enter your email" id="email-id" size="50" required >
+           
+        </div>         
+        
+        <div class="col-1">   </div>    
+      </div> 
+      <!-------------------------------------fname ------ -->    
+
+     <div class="row p-2 input-group">
+        <div class="col-1">   </div>    
+
+        <div class="col-auto">         
+         <input type="text" class="form-control" placeholder="First Name" id="fname-id" size="50" required>                
+        </div>         
+        
+        <div class="col-1">   </div>    
+      </div> 
+      <!-------------------------------------lname------ -->
+
+      <div class="row p-2 input-group">
+        <div class="col-1">   </div>    
+
+        <div class="col-auto">         
+         <input type="text" class="form-control" placeholder="Last Name" id="lname-id" size="50" required>                
+        </div>         
+        
+        <div class="col-1">   </div>    
+      </div>
+      <!-------------------------------------phone-number------ -->
+
+      <div class="row p-2 input-group">
+        <div class="col-1">   </div>    
+
+        <div class="col-auto">         
+         <input type="text" class="form-control" placeholder="Phone Number (+xx xx xxxx...)" id="phone-number-id" size="50">
+        </div>         
+        
+        <div class="col-1">   </div>    
+      </div>
+
+      <!-------------------------------------confirm-Limitation of Liability----- -->
+
+      <div class="row p-2 input-group">
+        <div class="col-1">   </div>    
+
+        <div class="col-auto">         
+            <div>
+                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                <label>I confirm that I have read and agree to the Limitation of Liability</label>
+            </div>
+        </div>         
+        
+        <div class="col-1">   </div>    
+      </div>
+      
+
+      <!-------------------------------------------Button -->
+        <div class="row p-2">
+          <div class="col-1"> </div>
+
+          <div class="col-auto">
+            <!-- <div id="liveAlertPlaceholder"></div>  -->
+
+            <div class="d-grid gap-2">         
+
+              <button class="btn btn-primary" type="button" id="calculate-btn-id" disabled>Generate a and send me my hedging policy</button> 
+
+            </div>                
+          </div>
+
+          <div class="col-1"> </div>
+        </div>
+
+        <!-------------------------------------------liveAlertPlaceholder -->
+        <div class="row p-2">
+          <div class="col-1"> </div>
+
+          <div class="col-auto">
+            <div id="liveAlertPlaceholder"></div>          
+          </div>
+
+          <div class="col-1"> </div>
+        </div>
+
+      <!---========================================================---Limitation of Liability ================ --> 
+          
+      <div class="row pt-4">
+          <div class="col-1"> </div> 
+
+          <div class="col-auto">
+             <hr>       
+
+            <h6 class="px-5">Limitation of Liability</h6>
+
+            <p id="limitation-of-liability"  class="px-5">
+              IN NO EVENT WILL THE OWNER OF THE WEBSITE AND / OR THE CREATOR OF THE CALCULATORS OR ITS THIRD PARTY PROVIDERS BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION DIRECT OR INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, LOSSES OR EXPENSES ARISING OUT OF OR RELATING TO YOUR USE OF THE WEBSITE, ANY FAILURE OF PERFORMANCE, ERROR, OMISSION, INTERRUPTION, DEFECT, DELAY IN OPERATION OR TRANSMISSION, COMPUTER VIRUS, LINE OR SYSTEM FAILURE, UNAUTHORIZED INTERCEPTION OF INFORMATION, OR OTHER SECURITY THREATS RELATING TO THE WEBSITE, EVEN IF THE OWNER OF THE WEBSITE AND / OR THE CREATOR OF THE CALCULATORS OR THEIR AGENTS OR ADVISORS ARE ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, LOSSES OR EXPENSES. PAST PERFORMANCE IS NO GUARANTEE OF FUTURE RESULTS. THE RESULTS OF THE CALCULATIONS OR POLICIES SHOULD NOT BE SEEN AS A PROMISE TO MAKE A PROFIT. THE PURPOSE OF HEDGING IS NOT TO MAKE A PROFIT BUT TO REDUCE THE VOLATILITY OF THE UNDERLYING ASSET. ANYONE WHO DECIDES TO ACT IN LIGHT OF THE RESULTS OF THE VARIOUS CALCULATIONS DOES SO AT HIS OWN RISK AND WILL NOT BE ABLE TO MAKE ANY CLAIMS TO ANY PARTY.
+            </p>
+
+          </div>
+          
+          <div class="col-1"> </div>
+      </div>
+      <!-------------------------------------------END Limitation of Liability -->
+
+    </div> <!-- container -->
+
+  <!-------------------------------------------loading -->
+      <div id="loading" class="loading pt-40">
+        <div class="d-flex justify-content-center">
+          <div>              
+              <div class="spinner-border text-light" style="width: 4rem; height: 4rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <div class="text-light">Loading...</div>
+          </div>
+        </div>
+      </div> 
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+
+    <script>
+        
+        // //=======================================================================
+
+        var hedgingDirectionValue;
+
+        function hendelDirectionUpChange(){
+          var hedgingDirection = document.getElementById("direction-up-id");
+          hedgingDirectionValue = hedgingDirection.checked? "Up" : "Down";
+
+          // console.log("hedgingDirectionValue: "+hedgingDirectionValue);
+          document.getElementById("span-depreciation").classList.add("d-none");
+          document.getElementById("span-apreciation").classList.remove("d-none");
+          updateSpanUp();
+        };
+
+        function updateSpanUp(){
+          var major_ccy = document.getElementById("major-currency-select-id").value;
+          var minor_ccy = document.getElementById("minor-currency-select-id").value;
+  
+          document.getElementById("span-major-apreciation").textContent = major_ccy;
+          document.getElementById("span-minor-apreciation").textContent = minor_ccy;
+        }
+
+        function hendelDirectionDownChange(){
+          var hedgingDirection = document.getElementById("direction-down-id");
+          hedgingDirectionValue = hedgingDirection.checked? "Down" : "Up";
+
+          //console.log("hedgingDirectionValue: "+hedgingDirectionValue);
+          document.getElementById("span-apreciation").classList.add("d-none");
+          document.getElementById("span-depreciation").classList.remove("d-none");
+          updateSpanDown()
+        };
+
+        function handleConfirmLiability(){
+          var handlingConfirm = document.getElementById("checkboxNoLabel");
+          handlingConfirmValue = handlingConfirm.checked? "confirm_yes" : "confirm_no";
+
+          if (handlingConfirmValue == "confirm_yes"){
+            document.getElementById('calculate-btn-id').disabled = false;
+          } else{
+            document.getElementById('calculate-btn-id').disabled = true;
+          }
+
+        }
+
+        function updateSpanDown(){
+          var major_ccy = document.getElementById("major-currency-select-id").value;
+          var minor_ccy = document.getElementById("minor-currency-select-id").value;
+
+          document.getElementById("span-major-depreciation").textContent = major_ccy;
+          document.getElementById("span-minor-depreciation").textContent = minor_ccy;
+        }
+
+        function hedelCurrencyPairChange(){
+          document.getElementById("span-apreciation").classList.add("d-none");
+          document.getElementById("span-depreciation").classList.add("d-none");
+          document.getElementById("direction-up-id").checked = false;
+          document.getElementById("direction-down-id").checked = false;
+        }
+
+        var alertPlaceholder;  
+
+        function alert(message, type) {
+          var wrapper = document.createElement('div')
+          wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+
+          alertPlaceholder.append(wrapper)
+        }
+
+        function run_getCyrrencySymbols(){
+          google.script.run.withSuccessHandler(afterCurrencySymbolReturned).getCurrencySymbols();
+        }
+
+        function afterCurrencySymbolReturned(symboleReturned){
+          //console.log(symboleReturned)
+          var item_currencySymboleMajor = document.getElementById("major-currency-select-id"); 
+          var item_currencySymboleMinor = document.getElementById("minor-currency-select-id");              
+
+          symboleReturned.forEach(function(r){
+            var option = document.createElement("option");
+            option.textContent = r;
+            item_currencySymboleMajor.appendChild(option);
+          });
+
+          symboleReturned.forEach(function(r){
+            var option = document.createElement("option");
+            option.textContent = r;
+            item_currencySymboleMinor.appendChild(option);
+          });
+
+          document.getElementById("loading").remove();
+        }
+
+        function run_afterCluck(){
+          var major_ccy = document.getElementById("major-currency-select-id").value;
+          var minor_ccy = document.getElementById("minor-currency-select-id").value;
+            console.log(major_ccy);
+            console.log(minor_ccy);          
+        }
+      //----------------------------------------------validate--------------------------------------------------------
+      function validate(){
+        let toCheckIfTrue = [];
+        let objToSendToServer = "";
+                   
+        var major_currency_select = document.getElementById("major-currency-select-id");
+        if (major_currency_select.value == "Select an option"){
+            major_currency_select.classList.add("is-invalid");
+        } else{
+          major_currency_select.classList.remove("is-invalid");
+        }
+
+        var minor_currency_select = document.getElementById("minor-currency-select-id");
+        if (minor_currency_select.value == "Select an option"){
+            minor_currency_select.classList.add("is-invalid");
+        } else{
+            minor_currency_select.classList.remove("is-invalid");
+        }
+
+        var is_benchmark = document.getElementById("is-benchmark-id");
+        if (is_benchmark.value == "Select an option"){
+            is_benchmark.classList.add("is-invalid");
+        } else{
+            is_benchmark.classList.remove("is-invalid");
+        }
+
+        var level_of_certainty = document.getElementById("level-of-certainty-id"); 
+        if (level_of_certainty.value == "Select an option"){
+            level_of_certainty.classList.add("is-invalid");
+        } else{
+            level_of_certainty.classList.remove("is-invalid");
+        }
+
+        var roll_currency_exposures = document.getElementById("roll-currency-exposures-id");   
+        if (roll_currency_exposures.value == "Select an option"){
+            roll_currency_exposures.classList.add("is-invalid");
+        } else{
+            roll_currency_exposures.classList.remove("is-invalid");
+        }
+            
+        var financial_damage = document.getElementById("financial-damage-id"); 
+        console.log("financial_damage.value: "+financial_damage.value);
+        if (financial_damage.value == "Select an option"){
+            financial_damage.classList.add("is-invalid");
+        } else{
+            financial_damage.classList.remove("is-invalid");
+        }
+        console.log("financial_damage has is invalid class?: " + financial_damage.classList.contains("is-invalid"));
+        // console.log(financial_damage.classList.contains("is-invalid"));   
+
+
+        var fieldsToValidate = document.querySelectorAll("#user-form input");
+
+        Array.prototype.forEach.call(fieldsToValidate, function(el){
+          if(el.checkValidity()){
+            el.classList.remove("is-invalid");
+          } else{
+            el.classList.add("is-invalid");
+          }
+        });
+
+        let returnAllInputisTrue =  Array.prototype.every.call(fieldsToValidate, function(el){
+          return el.checkValidity();
+        });
+
+        console.log("returnAllInputisTrue: "+returnAllInputisTrue);
+
+        toCheckIfTrue = [returnAllInputisTrue, 
+                       !major_currency_select.classList.contains("is-invalid"), 
+                       !minor_currency_select.classList.contains("is-invalid"), 
+                       !is_benchmark.classList.contains("is-invalid"), 
+                       !level_of_certainty.classList.contains("is-invalid"), 
+                       !roll_currency_exposures.classList.contains("is-invalid"), 
+                       !financial_damage.classList.contains("is-invalid")
+                     ];
+
+        console.log(toCheckIfTrue);
+        
+
+        let everyResultRturn = toCheckIfTrue.every(function(el){
+          return el == true;
+        })
+        console.log("everyResultRturn: " + everyResultRturn);
+
+        if(major_currency_select.value == minor_currency_select.value){
+            alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+            return alert(`Major currency can't be the same as the minor currency`, 'danger')
+        }
+
+        var budget_rate = document.getElementById("budget-rate-id");
+        //console.log(budget_rate.value);
+
+        objToSendToServer = {major_currency_select: major_currency_select.value,
+                             minor_currency_select: minor_currency_select.value,
+                             hedgingDirectionValue: hedgingDirectionValue,
+                             budget_rate: budget_rate.value,
+                             is_benchmark: is_benchmark.value,
+                             level_of_certainty: level_of_certainty.value,
+                             roll_currency_exposures: roll_currency_exposures.value,
+                             financial_damage: financial_damage.value,
+                             email_id: document.getElementById("email-id").value,
+                             fname_id: document.getElementById("fname-id").value,
+                             lname_id: document.getElementById("lname-id").value,
+                             phone_number_id: document.getElementById("phone-number-id").value
+                            };         
+      
+        console.log(objToSendToServer);
+
+        if(everyResultRturn){
+            sendDataToServer(objToSendToServer);
+            alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+            return alert('Well done! You should receive an email in the next few minutes. If you did not receive it - check the spam folder as well.', 'success')
+        } else{
+            alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+            return alert('Please fix the fields marked in red. Then submit the form again!', 'danger');
+        }        
+      } // end: validate function
+
+      function sendDataToServer(objToSendToServer){
+        google.script.run.withSuccessHandler(afterDataSentToServer).setDataTModel(objToSendToServer);
+      }
+
+      function afterDataSentToServer(){
+        
+      }
+
+
+      //-------------------------------------------------Events---------------------------------  
+        document.getElementById("direction-up-id").addEventListener("change",hendelDirectionUpChange);
+        document.getElementById("direction-down-id").addEventListener("change",hendelDirectionDownChange);
+        document.getElementById("major-currency-select-id").addEventListener("change",hedelCurrencyPairChange);
+        document.getElementById("minor-currency-select-id").addEventListener("change",hedelCurrencyPairChange);
+        document.getElementById("checkboxNoLabel").addEventListener("change",handleConfirmLiability);
+      
+        document.getElementById("calculate-btn-id").addEventListener("click",validate);
+
+
+        document.addEventListener('DOMContentLoaded',run_getCyrrencySymbols);
+    </script>
+
+  </body>
+</html>
